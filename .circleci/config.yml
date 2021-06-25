@@ -37,4 +37,4 @@ workflows:
   identity:
     jobs:
       - lint:
-        service: identity
+          service: identity
