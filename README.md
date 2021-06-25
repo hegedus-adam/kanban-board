@@ -1,2 +1,10 @@
-# kanban-board
-Kanban board
+# Kanban Board
+
+Sample kanban application
+
+## Services
+
+### Identity
+
+### Gateway
+
