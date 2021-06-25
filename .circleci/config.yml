@@ -20,11 +20,11 @@ jobs:
             - ~/.npm
       - run:
           name: Install packages
-          command:
-              - cd identity 
-              - pnpm i --prefer-frozen-lockfile
+          working_directory: identity
+          command: pnpm i --prefer-frozen-lockfile
       - run:
-          name: Run Tests
+          name: Lint
+          working_directory: identity
           command: pnpm lint
 
 workflows:
