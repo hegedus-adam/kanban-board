@@ -8,7 +8,6 @@ jobs:
       service:
         description: Service path
         type: string
-        default: identity
     steps:
       - checkout
       - restore_cache:
@@ -20,14 +19,14 @@ jobs:
           name: install pnpm
           working_directory: << parameters.service >>
           command: sudo npm i -g pnpm
-      - save_cache:
-          key: node-deps-v1-{{ .Branch }}-{{checksum "<< parameters.service >>/pnpm-lock.yaml"}}
-          paths:
-            - ~/.npm
       - run:
           name: Install packages
           working_directory: << parameters.service >>
           command: pnpm i --prefer-frozen-lockfile
+      - save_cache:
+          key: node-deps-v1-{{ .Branch }}-{{checksum "<< parameters.service >>/pnpm-lock.yaml"}}
+          paths:
+            - ~/.pnpm
       - run:
           name: Lint
           working_directory: << parameters.service >>

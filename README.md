@@ -6,5 +6,6 @@ Sample kanban application
 
 ### Identity
 
-### Gateway
+[![CircleCI](https://circleci.com/gh/hegedus-adam/kanban-board/tree/master.svg?style=svg)](https://circleci.com/gh/hegedus-adam/kanban-board/tree/master)
 
+### Gateway
