@@ -16,7 +16,7 @@ jobs:
             - node-deps-v1-{{ .Branch }}-{{checksum "pnpm-lock.yaml"}}
       - run:
           name: install pnpm
-          command: npm i -g pnpm
+          command: sudo npm i -g pnpm
       - save_cache:
           key: node-deps-v1-{{ .Branch }}-{{checksum "pnpm-lock.yaml"}}
           paths:
