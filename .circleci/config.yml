@@ -4,27 +4,26 @@ jobs:
   lint:
     docker:
       - image: cimg/node:15.1
-    working_directory: identity
     steps:
       - checkout
       - restore_cache:
           # See the configuration reference documentation for more details on using restore_cache and save_cache steps
           # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
           keys:
-            - node-deps-v1-{{ .Branch }}-{{checksum "pnpm-lock.yaml"}}
+            - node-deps-v1-{{ .Branch }}-{{checksum "identity/pnpm-lock.yaml"}}
       - run:
           name: install pnpm
           command: sudo npm i -g pnpm
       - save_cache:
-          key: node-deps-v1-{{ .Branch }}-{{checksum "pnpm-lock.yaml"}}
+          key: node-deps-v1-{{ .Branch }}-{{checksum "identity/pnpm-lock.yaml"}}
           paths:
             - ~/.npm
       - run:
           name: Install packages
-          command: pnpm i --prefer-frozen-lockfile
+          command: cd identity; pnpm i --prefer-frozen-lockfile
       - run:
           name: Run Tests
-          command: npm run lint
+          command: pnpm lint
 
 workflows:
   identity:
