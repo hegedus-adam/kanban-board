@@ -1,28 +1,39 @@
 version: 2.1
 
 jobs:
-  test:
+  lint:
     docker:
       - image: cimg/node:15.1
+    parameters:
+      service:
+        description: Service path
+        type: string
     steps:
       - checkout
       - restore_cache:
           # See the configuration reference documentation for more details on using restore_cache and save_cache steps
           # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
           keys:
-            - node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
+            - node-deps-v1-{{ .Branch }}-{{checksum "<< parameters.service >>/pnpm-lock.yaml"}}
       - run:
-          name: install packages
-          command: npm ci
+          name: install pnpm
+          working_directory: << parameters.service >>
+          command: sudo npm i -g pnpm
+      - run:
+          name: Install packages
+          working_directory: << parameters.service >>
+          command: pnpm i --prefer-frozen-lockfile
       - save_cache:
-          key: node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
+          key: node-deps-v1-{{ .Branch }}-{{checksum "<< parameters.service >>/pnpm-lock.yaml"}}
           paths:
-            - ~/.npm
+            - ~/.pnpm
       - run:
-          name: Run Tests
-          command: npm run test
+          name: Lint
+          working_directory: << parameters.service >>
+          command: pnpm lint
 
 workflows:
-  orb-free-workflow:
+  identity:
     jobs:
-      - test
+      - lint:
+          service: identity
