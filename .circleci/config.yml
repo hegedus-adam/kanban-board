@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  test:
+  lint:
     docker:
       - image: cimg/node:15.1
     steps:
@@ -10,19 +10,25 @@ jobs:
           # See the configuration reference documentation for more details on using restore_cache and save_cache steps
           # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
           keys:
-            - node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
+            - node-deps-v1-{{ .Branch }}-{{checksum "pnpm-lock.yaml"}}
       - run:
-          name: install packages
-          command: npm ci
+          name: install pnpm
+          command: npm i -g pnpm
       - save_cache:
-          key: node-deps-v1-{{ .Branch }}-{{checksum "package-lock.json"}}
+          key: node-deps-v1-{{ .Branch }}-{{checksum "pnpm-lock.yaml"}}
           paths:
             - ~/.npm
       - run:
+          name: Working Directory
+          command: cd identity
+      - run:
+          name: Install packages
+          command: pnpm i --prefer-frozen-lockfile
+      - run:
           name: Run Tests
-          command: npm run test
+          command: npm run lint
 
 workflows:
-  orb-free-workflow:
+  identity:
     jobs:
-      - test
+      - lint
