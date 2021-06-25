@@ -6,6 +6,9 @@ jobs:
       - image: cimg/node:15.1
     steps:
       - checkout
+      - run:
+          name: Working Directory
+          command: cd identity
       - restore_cache:
           # See the configuration reference documentation for more details on using restore_cache and save_cache steps
           # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
@@ -18,9 +21,6 @@ jobs:
           key: node-deps-v1-{{ .Branch }}-{{checksum "pnpm-lock.yaml"}}
           paths:
             - ~/.npm
-      - run:
-          name: Working Directory
-          command: cd identity
       - run:
           name: Install packages
           command: pnpm i --prefer-frozen-lockfile
