@@ -1,15 +1,13 @@
 import express from 'express';
 import cors from 'cors';
+import { router } from './router.mjs';
 
 const app = express();
 const port = 4100;
 
 app.use(cors());
 app.use(express.json());
-
-app.get('/', (req, res) => {
-  res.send('Identity service');
-});
+app.use(router);
 
 app.listen(port, () => {
   console.log(`Identity service listening at http://localhost:${port}`);
