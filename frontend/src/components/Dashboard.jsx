@@ -1,6 +1,8 @@
 import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
 
+import Navbar from './Navbar';
+
 export default function Dashboard() {
   const { currentUser, logout } = useAuth();
   const history = useHistory();
@@ -15,8 +17,8 @@ export default function Dashboard() {
   return (
     <>
       <div>
-        <strong>Email:</strong> {currentUser.email}
-        <button onClick={handleLogout}>logout</button>
+        <Navbar user={currentUser.email} logout={handleLogout} />
+     
       </div>
     </>
   );

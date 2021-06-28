@@ -10,19 +10,17 @@ export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { login } = useAuth();
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
-      setError('');
       setLoading(true);
       await login(emailRef.current.value, passwordRef.current.value);
       history.push('/');
     } catch {
-      setError('Failed to log in');
+      alert('Failed to log in');
     }
     setLoading(false);
   }
@@ -38,7 +36,6 @@ export default function Login() {
                 type="email"
                 placeholder="Email"
                 ref={emailRef}
-                required
               />
               <span className="icon is-small is-left">
                 <AiOutlineMail />
@@ -52,7 +49,6 @@ export default function Login() {
                 type="password"
                 placeholder="Password"
                 ref={passwordRef}
-                required
               />
               <span className="icon is-small is-left">
                 <BiKey />
@@ -63,7 +59,7 @@ export default function Login() {
             <p className="control">
               <button
                 type="submit"
-                className={error ? 'button is-danger' : 'button is-success'}
+                className="button is-success"
                 disabled={loading}
               >
                 Login
