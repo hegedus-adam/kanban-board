@@ -1,6 +1,10 @@
 import { useRef, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
+import { AiOutlineMail } from 'react-icons/ai';
+
+import '../assets/login.css';
+import { BiKey } from 'react-icons/bi';
 
 export default function Login() {
   const emailRef = useRef();
@@ -24,22 +28,50 @@ export default function Login() {
   }
 
   return (
-    <>
-      <div>
-        {error && <h2>{error}</h2>}
+    <div className="container">
+      <div className="card">
         <form onSubmit={handleSubmit}>
-          <input type="email" placeholder="email" ref={emailRef} required />
-          <input
-            type="password"
-            placeholder="pass"
-            ref={passwordRef}
-            required
-          />
-          <button disabled={loading} type="submit">
-            Log In
-          </button>
+          <div className="field">
+            <p className="control has-icons-left has-icons-right">
+              <input
+                className="input"
+                type="email"
+                placeholder="Email"
+                ref={emailRef}
+                required
+              />
+              <span className="icon is-small is-left">
+                <AiOutlineMail />
+              </span>
+            </p>
+          </div>
+          <div className="field">
+            <p className="control has-icons-left">
+              <input
+                className="input"
+                type="password"
+                placeholder="Password"
+                ref={passwordRef}
+                required
+              />
+              <span className="icon is-small is-left">
+                <BiKey />
+              </span>
+            </p>
+          </div>
+          <div className="field">
+            <p className="control">
+              <button
+                type="submit"
+                className={error ? 'button is-danger' : 'button is-success'}
+                disabled={loading}
+              >
+                Login
+              </button>
+            </p>
+          </div>
         </form>
       </div>
-    </>
+    </div>
   );
 }
