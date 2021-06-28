@@ -12,5 +12,17 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'import/extensions': [
+      'error',
+      {
+        'mjs': 'always',
+      },
+    ],
+    'import/no-default-export': [
+      'error',
+    ],
+    'import/prefer-default-export': [
+      'off',
+    ],
   },
 };
