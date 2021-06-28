@@ -3,16 +3,20 @@ import '../assets/navbar.css';
 
 const Navbar = ({ user, logout }) => {
   return (
-    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
-      <div id="navbarBasicExample" class="navbar-menu is-active">
-        <div class="navbar-start">
-          <div class="navbar-item">Kanban board</div>
+    <nav
+      className="navbar is-light"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div id="navbarBasicExample" className="navbar-menu is-active">
+        <div className="navbar-start">
+          <div className="navbar-item">Kanban board</div>
         </div>
-        <div class="navbar-end">
-          <div class="navbar-item">{user}</div>
-          <div class="navbar-item">
-            <div class="buttons">
-              <button class="button is-primary" onClick={logout}>
+        <div className="navbar-end">
+          <div className="navbar-item">{user}</div>
+          <div className="navbar-item">
+            <div className="buttons">
+              <button className="button is-primary" onClick={logout}>
                 <strong>Sign out</strong>
               </button>
             </div>
