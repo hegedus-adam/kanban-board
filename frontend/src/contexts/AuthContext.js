@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { auth } from '../firebase';
 
-const AuthContext = React.createContext(defaultValue);
+const AuthContext = React.createContext();
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -39,8 +39,4 @@ export function AuthProvider({ children }) {
       {!loading && children}
     </AuthContext.Provider>
   );
-}
-
-function defaultValue(defaultValue: any) {
-  throw new Error('Function not implemented.');
 }
