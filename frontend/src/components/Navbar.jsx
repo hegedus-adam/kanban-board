@@ -3,21 +3,19 @@ import '../assets/navbar.scss';
 
 const Navbar = ({ user, logout }) => {
   return (
-    <nav className="navbar is-light" role="navigation" aria-label="main navigation">
-      <div className="navbar-menu is-active">
-        <div className="navbar-start">
-          <div className="navbar-item">Kanban board</div>
-        </div>
-        <div className="navbar-end">
-          <div className="navbar-item">{user}</div>
-          <div className="navbar-item">
-            <div className="buttons">
-              <button className="button is-primary" onClick={logout}>
-                <strong>Sign out</strong>
-              </button>
-            </div>
-          </div>
-        </div>
+    <nav className="navbar-container">
+      <div className="navbar-left">
+        <p>
+          <strong>Kanban board</strong>
+        </p>
+      </div>
+      <div className="navbar-right">
+        <p>
+          <strong>{user}</strong>
+        </p>
+        <button className="sign-button" onClick={logout}>
+          Log out
+        </button>
       </div>
     </nav>
   );

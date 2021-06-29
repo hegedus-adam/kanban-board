@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Lato', sans-serif;
+}
+
+body {
+  background: linear-gradient(#141e30, #243b55);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  overflow: visible;
+}
+
+*::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.main-container {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sign-button {
+  position: relative;
+  display: inline-block;
+  padding: 3px 7px;
+  color: #03e9f4;
+  background-color: transparent;
+  font-size: 14px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.5s;
+  letter-spacing: 2px;
+
+  &:hover {
+    border-radius: 2px;
+    box-shadow: 0 0 2px #03e9f4, 0 0 10px #03e9f4, 0 0 20px #03e9f4, 0 0 100px #03e9f4;
+  }
+}

@@ -1,6 +1,5 @@
 import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
-import '../assets/dashboard.scss';
 
 import Navbar from './Navbar';
 import Footer from './Footer';
