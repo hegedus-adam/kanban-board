@@ -8,7 +8,7 @@ const Navbar = ({ user, logout }) => {
       role="navigation"
       aria-label="main navigation"
     >
-      <div id="navbarBasicExample" className="navbar-menu is-active">
+      <div className="navbar-menu is-active">
         <div className="navbar-start">
           <div className="navbar-item">Kanban board</div>
         </div>

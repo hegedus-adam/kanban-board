@@ -18,12 +18,10 @@ export default function Dashboard() {
   }
 
   return (
-    <>
       <div className="main-container">
         <Navbar user={currentUser.email} logout={handleLogout} />
         <Board />
         <Footer />
       </div>
-    </>
   );
 }
