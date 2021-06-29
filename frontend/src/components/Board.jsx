@@ -1,5 +1,5 @@
 import React from 'react';
-import '../assets/board.css';
+import '../assets/board.scss';
 import Columns from './Columns';
 
 const Board = () => {

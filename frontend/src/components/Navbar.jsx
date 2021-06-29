@@ -1,13 +1,9 @@
 import React from 'react';
-import '../assets/navbar.css';
+import '../assets/navbar.scss';
 
 const Navbar = ({ user, logout }) => {
   return (
-    <nav
-      className="navbar is-light"
-      role="navigation"
-      aria-label="main navigation"
-    >
+    <nav className="navbar is-light" role="navigation" aria-label="main navigation">
       <div className="navbar-menu is-active">
         <div className="navbar-start">
           <div className="navbar-item">Kanban board</div>

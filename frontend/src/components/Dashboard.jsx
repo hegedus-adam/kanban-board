@@ -1,6 +1,6 @@
 import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
-import '../assets/dashboard.css';
+import '../assets/dashboard.scss';
 
 import Navbar from './Navbar';
 import Footer from './Footer';
@@ -18,10 +18,10 @@ export default function Dashboard() {
   }
 
   return (
-      <div className="main-container">
-        <Navbar user={currentUser.email} logout={handleLogout} />
-        <Board />
-        <Footer />
-      </div>
+    <div className="main-container">
+      <Navbar user={currentUser.email} logout={handleLogout} />
+      <Board />
+      <Footer />
+    </div>
   );
 }

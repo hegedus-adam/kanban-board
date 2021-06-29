@@ -3,7 +3,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useHistory } from 'react-router-dom';
 import { AiOutlineMail } from 'react-icons/ai';
 
-import '../assets/login.css';
+import '../assets/login.scss';
 import { BiKey } from 'react-icons/bi';
 
 export default function Login() {
@@ -31,12 +31,7 @@ export default function Login() {
         <form onSubmit={handleSubmit}>
           <div className="field">
             <p className="control has-icons-left has-icons-right">
-              <input
-                className="input"
-                type="email"
-                placeholder="Email"
-                ref={emailRef}
-              />
+              <input className="input" type="email" placeholder="Email" ref={emailRef} />
               <span className="icon is-small is-left">
                 <AiOutlineMail />
               </span>
@@ -44,12 +39,7 @@ export default function Login() {
           </div>
           <div className="field">
             <p className="control has-icons-left">
-              <input
-                className="input"
-                type="password"
-                placeholder="Password"
-                ref={passwordRef}
-              />
+              <input className="input" type="password" placeholder="Password" ref={passwordRef} />
               <span className="icon is-small is-left">
                 <BiKey />
               </span>
@@ -57,11 +47,7 @@ export default function Login() {
           </div>
           <div className="field">
             <p className="control">
-              <button
-                type="submit"
-                className="button is-success"
-                disabled={loading}
-              >
+              <button type="submit" className="button is-success" disabled={loading}>
                 Login
               </button>
             </p>
