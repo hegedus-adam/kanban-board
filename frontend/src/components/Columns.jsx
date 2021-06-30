@@ -17,10 +17,8 @@ function Columns({ list, setList }) {
 
   const handleDragEnter = (e, targetItem) => {
     if (dragItemNode.current !== e.target) {
-      const targetGroupIndex = targetItem.groupIndex;
-      const targetItemIndex = targetItem.itemIndex;
-      const grabbedItemGroupIndex = dragItem.current.groupIndex;
-      const grabbedItemIndex = dragItem.current.itemIndex;
+      const { groupIndex: targetGroupIndex, itemIndex: targetItemIndex } = targetItem;
+      const { groupIndex: grabbedItemGroupIndex, itemIndex: grabbedItemIndex } = dragItem.current;
 
       //Swap items
       const newList = [...list];
@@ -38,11 +36,12 @@ function Columns({ list, setList }) {
     dragItemNode.current.removeEventListener('dragend', handleDragEnd);
     dragItemNode.current = null;
   };
-  const getClasses = (item) =>
-    dragging && dragItem.current.groupIndex === item.groupIndex && dragItem.current.itemIndex === item.itemIndex
-      ? 'dnd-item current'
-      : 'dnd-item';
+  const getClasses = (item) => {
+    const { groupIndex: dragItemGroupIndex, itemIndex: dragItemIndex } = dragItem.current;
+    const { groupIndex, itemIndex } = item;
 
+    return dragging && dragItemGroupIndex === groupIndex && dragItemIndex === itemIndex ? 'dnd-item current' : 'dnd-item';
+  };
 
   if (list) {
     return (
