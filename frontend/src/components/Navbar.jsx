@@ -1,18 +1,24 @@
 import React from 'react';
 import '../assets/navbar.css';
-import { CgProfile } from 'react-icons/cg';
 
 const Navbar = ({ user, logout }) => {
   return (
-    <nav class="navbar is-light" role="navigation" aria-label="main navigation">
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-end">
-          <div class="navbar-item">{user}</div>
-          <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-primary" onClick={logout}>
+    <nav
+      className="navbar is-light"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div className="navbar-menu is-active">
+        <div className="navbar-start">
+          <div className="navbar-item">Kanban board</div>
+        </div>
+        <div className="navbar-end">
+          <div className="navbar-item">{user}</div>
+          <div className="navbar-item">
+            <div className="buttons">
+              <button className="button is-primary" onClick={logout}>
                 <strong>Sign out</strong>
-              </a>
+              </button>
             </div>
           </div>
         </div>
