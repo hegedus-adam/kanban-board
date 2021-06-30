@@ -1,12 +1,7 @@
 import React, { useState, useRef } from 'react';
 
-function Columns() {
-  const [list, setList] = useState([
-    { title: 'group 1', items: ['1', '2', '3'] },
-    { title: 'group 2', items: ['4', '5', '6'] },
-  ]);
+function Columns({ list, setList }) {
   const [dragging, setDragging] = useState(false);
-
   const dragItem = useRef();
   const dragItemNode = useRef();
 
@@ -19,22 +14,22 @@ function Columns() {
       setDragging(true);
     }, 0);
   };
-  const handleDragEnter = (e, targetItem) => {
-    console.log('Drop target: ', targetItem);
-    if (dragItemNode.current !== e.target) {
-      console.log('old: ', list);
 
-      // MAGIC - DONT TOUCH IT
+  const handleDragEnter = (e, targetItem) => {
+    if (dragItemNode.current !== e.target) {
+      const targetGroupIndex = targetItem.groupIndex;
+      const targetItemIndex = targetItem.itemIndex;
+      const grabbedItemGroupIndex = dragItem.current.groupIndex;
+      const grabbedItemIndex = dragItem.current.itemIndex;
+
+      //Swap items
       const newList = [...list];
-      const tmp = newList[targetItem.grpI].items[targetItem.itemI];
-      newList[targetItem.grpI].items[targetItem.itemI] =
-        newList[dragItem.current.grpI].items[dragItem.current.itemI];
-      newList[dragItem.current.grpI].items[dragItem.current.itemI] = tmp;
+      const tmp = newList[targetGroupIndex].items[targetItemIndex];
+      newList[targetGroupIndex].items[targetItemIndex] = newList[grabbedItemGroupIndex].items[grabbedItemIndex];
+      newList[grabbedItemGroupIndex].items[grabbedItemIndex] = tmp;
 
       dragItem.current = targetItem;
-      console.log('new :', newList);
       setList(newList);
-      console.log('original :', list);
     }
   };
   const handleDragEnd = (e) => {
@@ -43,49 +38,52 @@ function Columns() {
     dragItemNode.current.removeEventListener('dragend', handleDragEnd);
     dragItemNode.current = null;
   };
-  const getClasses = (item) => {
-    if (
-      dragItem.current.grpI === item.grpI &&
-      dragItem.current.itemI === item.itemI
-    ) {
-      return 'dnd-item current';
-    }
-    return 'dnd-item';
-  };
+  const getClasses = (item) =>
+    dragging && dragItem.current.groupIndex === item.groupIndex && dragItem.current.itemIndex === item.itemIndex
+      ? 'dnd-item current'
+      : 'dnd-item';
+
 
   if (list) {
     return (
-      <div className="drag-n-drop">
-        {list.map((grp, grpI) => (
-          <div
-            key={grp.title}
-            onDragEnter={
-              dragging && !grp.items.length
-                ? (e) => handleDragEnter(e, { grpI, itemI: 0 })
-                : null
-            }
-            className="dnd-group"
-          >
-            {grp.items.map((item, itemI) => (
-              <div
-                draggable
-                key={itemI}
-                onDragStart={(e) => handleDragStart(e, { grpI, itemI })}
-                onDragEnter={
-                  dragging
-                    ? (e) => {
-                        handleDragEnter(e, { grpI, itemI });
-                      }
-                    : null
-                }
-                className={dragging ? getClasses({ grpI, itemI }) : 'dnd-item'}
-              >
-                {item}
+      <>
+        <div className="drag-n-drop">
+          {list.map((group, groupIndex) => (
+            <div
+              key={group.title}
+              onDragEnter={dragging && !group.items.length ? (e) => handleDragEnter(e, { groupIndex, itemIndex: 0 }) : null}
+              className="dnd-group"
+            >
+              <div className="dnd-column-title">
+                <p>
+                  <strong>{group.title}</strong>
+                </p>
               </div>
-            ))}
-          </div>
-        ))}
-      </div>
+              {group.items.map((item, itemIndex) => (
+                <div
+                  draggable
+                  key={itemIndex}
+                  onDragStart={(e) => handleDragStart(e, { groupIndex, itemIndex })}
+                  onDragEnter={
+                    dragging
+                      ? (e) => {
+                          handleDragEnter(e, { groupIndex, itemIndex });
+                        }
+                      : null
+                  }
+                  className={getClasses({ groupIndex, itemIndex })}
+                >
+                  <div className="dnd-title">
+                    <p>
+                      <strong>{item}</strong>
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ))}
+        </div>
+      </>
     );
   } else {
     return null;
