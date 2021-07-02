@@ -1,6 +1,6 @@
-import express from 'express';
-import cors from 'cors';
-import { router } from './router.mjs';
+const express = require('express');
+const cors =  require('cors');
+const router = require('./router').router;
 
 const app = express();
 const port = 4100;

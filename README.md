@@ -2,10 +2,14 @@
 
 Sample kanban application
 
+[![CircleCI](https://circleci.com/gh/hegedus-adam/kanban-board/tree/master.svg?style=shield)](https://circleci.com/gh/hegedus-adam/kanban-board/tree/master)
+[![Coverage Status](https://coveralls.io/repos/github/hegedus-adam/kanban-board/badge.svg?branch=master)](https://coveralls.io/github/hegedus-adam/kanban-board?branch=master)
+![GitHub repo size](https://img.shields.io/github/repo-size/hegedus-adam/kanban-board)
+![GitHub last commit (master)](https://img.shields.io/github/last-commit/hegedus-adam/kanban-board/master)
+![GitHub contributors](https://img.shields.io/github/contributors/hegedus-adam/kanban-board)
+
 ## Services
 
 ### Identity
-
-[![CircleCI](https://circleci.com/gh/hegedus-adam/kanban-board/tree/master.svg?style=svg)](https://circleci.com/gh/hegedus-adam/kanban-board/tree/master)
 
 ### Gateway
