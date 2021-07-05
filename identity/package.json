@@ -2,12 +2,12 @@
   "name": "identity",
   "version": "1.0.0",
   "description": "Identity service",
-  "main": "src/server.mjs",
+  "main": "src/server.js",
   "scripts": {
-    "start": "nodemon src/server.mjs",
-    "lint": "eslint --ext .mjs,.js src/",
-    "test": "NODE_OPTIONS=--experimental-vm-modules pnpx jest",
-    "test:ci": "NODE_OPTIONS=--experimental-vm-modules pnpx jest --coverage"
+    "start": "nodemon src/server.js",
+    "lint": "eslint --ext .js src/",
+    "test": "jest",
+    "test:ci": "jest --coverage"
   },
   "keywords": [
     "nodejs",
@@ -22,13 +22,11 @@
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.6",
-    "babel-jest": "^27.0.6",
     "eslint": "^7.29.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",
-    "jest": "^27.0.5",
-    "nodemon": "^2.0.7",
+    "jest": "^27.0.6",
+    "nodemon": "^2.0.9",
     "supertest": "^6.1.3"
   }
 }

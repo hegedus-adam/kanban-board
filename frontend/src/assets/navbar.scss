@@ -1,0 +1,15 @@
+.navbar-container,
+.navbar-right {
+  display: flex;
+  margin: 0.5rem 0.7rem;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    color: #03e9f4;
+  }
+}
+
+.navbar-right {
+  width: 15rem;
+}
