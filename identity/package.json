@@ -6,8 +6,8 @@
   "scripts": {
     "start": "nodemon src/server.mjs",
     "lint": "eslint --ext .mjs,.js src/",
-    "test": "jest",
-    "test:ci": "jest --coverage"
+    "test": "NODE_OPTIONS=--experimental-vm-modules pnpx jest",
+    "test:ci": "NODE_OPTIONS=--experimental-vm-modules pnpx jest --coverage"
   },
   "keywords": [
     "nodejs",
@@ -22,6 +22,8 @@
     "jsonwebtoken": "^8.5.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.14.6",
+    "babel-jest": "^27.0.6",
     "eslint": "^7.29.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.23.4",
