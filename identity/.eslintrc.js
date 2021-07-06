@@ -2,6 +2,7 @@ module.exports = {
   env: {
     es2021: true,
     node: true,
+    'jest/globals': true,
   },
   extends: [
     'eslint:recommended',
@@ -11,6 +12,9 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
+  plugins: [
+    'jest',
+  ],
   rules: {
     'import/extensions': [
       'error',
