@@ -1,15 +1,11 @@
-import supertest from 'supertest';
-import express from 'express';
-import { router } from './router.mjs';
+const supertest = require('supertest');
+const express = require('express');
+const { router } = require('./router');
 
 const app = express();
 app.use(router);
 
 describe('router', () => {
-  beforeEach(() => {
-
-  });
-
   it('should send response to /', async () => {
     const response = await supertest(app)
       .get('/');

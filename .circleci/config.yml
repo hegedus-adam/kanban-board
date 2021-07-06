@@ -32,8 +32,41 @@ jobs:
           working_directory: << parameters.work_dir >>
           command: pnpm lint
 
+  test:
+    docker:
+      - image: cimg/node:15.1
+    parameters:
+      work_dir:
+        description: Service path
+        type: string
+    steps:
+      - checkout
+      - restore_cache:
+          # See the configuration reference documentation for more details on using restore_cache and save_cache steps
+          # https://circleci.com/docs/2.0/configuration-reference/?section=reference#save_cache
+          keys:
+            - node-deps-v1-{{ .Branch }}-{{checksum "<< parameters.work_dir >>/pnpm-lock.yaml"}}
+      - run:
+          name: install pnpm
+          working_directory: << parameters.work_dir >>
+          command: sudo npm i -g pnpm
+      - run:
+          name: Install packages
+          working_directory: << parameters.work_dir >>
+          command: pnpm i --prefer-frozen-lockfile
+      - save_cache:
+          key: node-deps-v1-{{ .Branch }}-{{checksum "<< parameters.work_dir >>/pnpm-lock.yaml"}}
+          paths:
+            - ~/.pnpm
+      - run:
+          name: Lint
+          working_directory: << parameters.work_dir >>
+          command: pnpm test:coverage
+
 workflows:
   identity:
     jobs:
       - lint:
+          work_dir: identity
+      - test:
           work_dir: identity
