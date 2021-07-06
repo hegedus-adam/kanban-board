@@ -62,9 +62,10 @@ jobs:
           name: Unit test
           working_directory: << parameters.work_dir >>
           command: pnpm test:ci
+      - store_artifacts:
+          path: << parameters.work_dir >>/coverage
       - store_test_results:
-          working_directory: << parameters.work_dir >>
-          path: coverage
+          path: << parameters.work_dir >>/coverage
 
 workflows:
   identity:
