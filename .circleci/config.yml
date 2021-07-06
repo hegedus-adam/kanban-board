@@ -63,7 +63,8 @@ jobs:
           working_directory: << parameters.work_dir >>
           command: pnpm test:ci
       - store_test_results:
-          path: test-results
+          working_directory: << parameters.work_dir >>
+          path: coverage
 
 workflows:
   identity:
