@@ -28,7 +28,7 @@ jobs:
           paths:
             - ~/.pnpm
       - run:
-          name: Lint
+          name: Lint javascript
           working_directory: << parameters.work_dir >>
           command: pnpm lint
 
@@ -59,9 +59,9 @@ jobs:
           paths:
             - ~/.pnpm
       - run:
-          name: Lint
+          name: Unit test
           working_directory: << parameters.work_dir >>
-          command: pnpm test:coverage
+          command: pnpm test:ci
 
 workflows:
   identity:
