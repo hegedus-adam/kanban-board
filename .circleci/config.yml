@@ -61,7 +61,7 @@ jobs:
       - run:
           name: Unit test
           working_directory: << parameters.work_dir >>
-          command: pnpm test:ci
+          command: mkdir reports && mkdir reports/junit && pnpm test:ci
           environment:
             JEST_JUNIT_OUTPUT_NAME: << parameters.work_dir >>/reports/junit/js-test-results.xml
       - store_artifacts:
