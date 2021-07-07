@@ -63,7 +63,7 @@ jobs:
           working_directory: << parameters.work_dir >>
           command: pnpm test:ci
           environment:
-            JEST_JUNIT_OUTPUT: << parameters.work_dir >>/reports/junit/js-test-results.xml
+            JEST_JUNIT_OUTPUT_NAME: << parameters.work_dir >>/reports/junit/js-test-results.xml
       - store_artifacts:
           path: << parameters.work_dir >>/coverage/
       - store_test_results:
