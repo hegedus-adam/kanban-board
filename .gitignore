@@ -6,4 +6,4 @@ coverage/
 .idea
 .vscode
 .pnpm-debug.log
-junit.xml
+reports

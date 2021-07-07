@@ -61,13 +61,11 @@ jobs:
       - run:
           name: Unit test
           working_directory: << parameters.work_dir >>
-          command: mkdir reports && mkdir reports/junit && pnpm test:ci
-          environment:
-            JEST_JUNIT_OUTPUT_NAME: << parameters.work_dir >>/reports/junit/js-test-results.xml
+          command: pnpm test:ci
       - store_artifacts:
           path: << parameters.work_dir >>/coverage/
       - store_test_results:
-          path: << parameters.work_dir >>/reports/junit
+          path: << parameters.work_dir >>/reports/test
 
 workflows:
   identity:

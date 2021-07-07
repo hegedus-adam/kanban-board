@@ -7,7 +7,7 @@
     "start": "nodemon src/server.js",
     "lint": "eslint --ext .js src/",
     "test": "jest",
-    "test:ci": "jest --ci --runInBand --reporters=default --reporters=jest-junit --coverage"
+    "test:ci": "JEST_JUNIT_OUTPUT_DIR=./reports/test jest --ci --runInBand --reporters=default --reporters=jest-junit --coverage"
   },
   "keywords": [
     "nodejs",
