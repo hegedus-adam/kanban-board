@@ -68,6 +68,12 @@ jobs:
           path: << parameters.work_dir >>/reports/test
 
 workflows:
+  gateway:
+    jobs:
+      - lint:
+          work_dir: gateway
+      - test:
+          work_dir: gateway
   identity:
     jobs:
       - lint:
