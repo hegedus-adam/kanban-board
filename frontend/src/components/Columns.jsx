@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { handleDragEnter } from '../util/dndHandler';
 
 function Columns({ list, setList }) {
   const [dragging, setDragging] = useState(false);
@@ -15,21 +16,6 @@ function Columns({ list, setList }) {
     }, 0);
   };
 
-  const handleDragEnter = (e, targetItem) => {
-    if (dragItemNode.current !== e.target) {
-      const { groupIndex: targetGroupIndex, itemIndex: targetItemIndex } = targetItem;
-      const { groupIndex: grabbedItemGroupIndex, itemIndex: grabbedItemIndex } = dragItem.current;
-
-      //Swap items
-      const newList = [...list];
-      const tmp = newList[targetGroupIndex].items[targetItemIndex];
-      newList[targetGroupIndex].items[targetItemIndex] = newList[grabbedItemGroupIndex].items[grabbedItemIndex];
-      newList[grabbedItemGroupIndex].items[grabbedItemIndex] = tmp;
-
-      dragItem.current = targetItem;
-      setList(newList);
-    }
-  };
   const handleDragEnd = (e) => {
     setDragging(false);
     dragItem.current = null;
@@ -37,7 +23,7 @@ function Columns({ list, setList }) {
     dragItemNode.current = null;
   };
   const getClasses = (item) => {
-    const { groupIndex: dragItemGroupIndex, itemIndex: dragItemIndex } = dragItem.current;
+    const { current: { groupIndex: dragItemGroupIndex, itemIndex: dragItemIndex } = {} } = dragItem;
     const { groupIndex, itemIndex } = item;
 
     return dragging && dragItemGroupIndex === groupIndex && dragItemIndex === itemIndex ? 'dnd-item current' : 'dnd-item';
@@ -50,7 +36,11 @@ function Columns({ list, setList }) {
           {list.map((group, groupIndex) => (
             <div
               key={group.title}
-              onDragEnter={dragging && !group.items.length ? (e) => handleDragEnter(e, { groupIndex, itemIndex: 0 }) : null}
+              onDragEnter={
+                dragging && !group.items.length
+                  ? (e) => handleDragEnter(e, { groupIndex, itemIndex: 0 }, dragItem, list, setList, dragItemNode)
+                  : null
+              }
               className="dnd-group"
             >
               <div className="dnd-column-title">
@@ -66,7 +56,7 @@ function Columns({ list, setList }) {
                   onDragEnter={
                     dragging
                       ? (e) => {
-                          handleDragEnter(e, { groupIndex, itemIndex });
+                          handleDragEnter(e, { groupIndex, itemIndex }, dragItem, list, setList, dragItemNode);
                         }
                       : null
                   }
