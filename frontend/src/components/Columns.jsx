@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { handleSwapBetweenGroup, handleMoveToOtherGroup } from '../util/dndHandler';
 
 function Columns({ list, setList }) {
   const [dragging, setDragging] = useState(false);
@@ -16,20 +17,20 @@ function Columns({ list, setList }) {
   };
 
   const handleDragEnter = (e, targetItem) => {
-    if (dragItemNode.current !== e.target) {
-      const { groupIndex: targetGroupIndex, itemIndex: targetItemIndex } = targetItem;
-      const { groupIndex: grabbedItemGroupIndex, itemIndex: grabbedItemIndex } = dragItem.current;
+    const newList = [...list];
+    const { groupIndex: targetGroupIndex, itemIndex: targetItemIndex } = targetItem;
+    const { groupIndex: grabbedItemGroupIndex, itemIndex: grabbedItemIndex } = dragItem.current;
 
-      //Swap items
-      const newList = [...list];
-      const tmp = newList[targetGroupIndex].items[targetItemIndex];
-      newList[targetGroupIndex].items[targetItemIndex] = newList[grabbedItemGroupIndex].items[grabbedItemIndex];
-      newList[grabbedItemGroupIndex].items[grabbedItemIndex] = tmp;
-
-      dragItem.current = targetItem;
-      setList(newList);
+    if (dragItemNode.current !== e.target && grabbedItemGroupIndex === targetGroupIndex) {
+      handleSwapBetweenGroup(newList, targetGroupIndex, targetItemIndex, grabbedItemGroupIndex, grabbedItemIndex);
     }
+    if (dragItemNode.current !== e.target && grabbedItemGroupIndex !== targetGroupIndex) {
+      handleMoveToOtherGroup(newList, targetGroupIndex, grabbedItemGroupIndex, grabbedItemIndex);
+    }
+    dragItem.current = targetItem;
+    setList(newList);
   };
+
   const handleDragEnd = (e) => {
     setDragging(false);
     dragItem.current = null;
@@ -37,7 +38,7 @@ function Columns({ list, setList }) {
     dragItemNode.current = null;
   };
   const getClasses = (item) => {
-    const { groupIndex: dragItemGroupIndex, itemIndex: dragItemIndex } = dragItem.current;
+    const { current: { groupIndex: dragItemGroupIndex, itemIndex: dragItemIndex } = {} } = dragItem;
     const { groupIndex, itemIndex } = item;
 
     return dragging && dragItemGroupIndex === groupIndex && dragItemIndex === itemIndex ? 'dnd-item current' : 'dnd-item';
