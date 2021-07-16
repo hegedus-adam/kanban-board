@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { handleDragEnter } from '../util/dndHandler';
+import { handleSwapBetweenGroup, handleMoveToOtherGroup } from '../util/dndHandler';
 
 function Columns({ list, setList }) {
   const [dragging, setDragging] = useState(false);
@@ -14,6 +14,21 @@ function Columns({ list, setList }) {
     setTimeout(() => {
       setDragging(true);
     }, 0);
+  };
+
+  const handleDragEnter = (e, targetItem) => {
+    const newList = [...list];
+    const { groupIndex: targetGroupIndex, itemIndex: targetItemIndex } = targetItem;
+    const { groupIndex: grabbedItemGroupIndex, itemIndex: grabbedItemIndex } = dragItem.current;
+
+    if (dragItemNode.current !== e.target && grabbedItemGroupIndex === targetGroupIndex) {
+      handleSwapBetweenGroup(newList, targetGroupIndex, targetItemIndex, grabbedItemGroupIndex, grabbedItemIndex);
+    }
+    if (dragItemNode.current !== e.target && grabbedItemGroupIndex !== targetGroupIndex) {
+      handleMoveToOtherGroup(newList, targetGroupIndex, grabbedItemGroupIndex, grabbedItemIndex);
+    }
+    dragItem.current = targetItem;
+    setList(newList);
   };
 
   const handleDragEnd = (e) => {
@@ -36,11 +51,7 @@ function Columns({ list, setList }) {
           {list.map((group, groupIndex) => (
             <div
               key={group.title}
-              onDragEnter={
-                dragging && !group.items.length
-                  ? (e) => handleDragEnter(e, { groupIndex, itemIndex: 0 }, dragItem, list, setList, dragItemNode)
-                  : null
-              }
+              onDragEnter={dragging && !group.items.length ? (e) => handleDragEnter(e, { groupIndex, itemIndex: 0 }) : null}
               className="dnd-group"
             >
               <div className="dnd-column-title">
@@ -56,7 +67,7 @@ function Columns({ list, setList }) {
                   onDragEnter={
                     dragging
                       ? (e) => {
-                          handleDragEnter(e, { groupIndex, itemIndex }, dragItem, list, setList, dragItemNode);
+                          handleDragEnter(e, { groupIndex, itemIndex });
                         }
                       : null
                   }
