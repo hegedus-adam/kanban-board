@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const express = require('express');
 const {
   findUser,
@@ -29,6 +30,27 @@ router.post('/api/login', (req, res) => {
     } else {
       res.status(403).json({ message: 'Invalid credentials' });
     }
+  }
+});
+
+router.post('/api/add-user', async (req, res) => {
+  const {
+    body: {
+      username,
+      password,
+    },
+  } = req;
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = {
+      username,
+      password: hashedPassword,
+    };
+
+    res.status(201).json(user);
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 
