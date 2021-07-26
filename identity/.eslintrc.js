@@ -16,6 +16,10 @@ module.exports = {
     'jest',
   ],
   rules: {
+    'arrow-parens': [
+      'error',
+      'as-needed',
+    ],
     'import/extensions': [
       'error',
       {
